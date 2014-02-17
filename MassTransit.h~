@@ -231,13 +231,13 @@ public :
 
       //  YOUR CODE HERE TO WAIT FOR THE i-th pthread AND TO SET 'trainPtr' TO
       //  THE 'Train' INSTANCE THAT IT GIVES BACK
-      pthread_join(trainArray[i], NULL);
+      pthread_join(trainArray[i], NULL)
       safeDelete(trainPtr);
     }
 
     //  II.B.  Destroy 'print()' mutex:
     //  YOUR CODE HERE TO DESTROY YOUR MUTEX:
-    pthread_mutex_destroy(&lock);
+    pthread_mutex_destroy(&lock)
     //  III.  Finished:
   }
 
