@@ -39,7 +39,7 @@ class	MassTransit
 
   //  PURPOSE:  To hold the array of pthreads.
   //  YOUR CODE HERE 
-  int 			trainArray[NUM_TRAINS];
+  pthread_t		tid[NUM_TRAINS];
 
   //  PURPOSE:  To hold the lock that controls which thread can execute
   //  	'print()'.
@@ -120,7 +120,9 @@ public :
 
     //  II.B.  Initialize mutex for 'print()':
     //  YOUR CODE HERE 
-    pthread_mutex_init(&lock,NULL);
+    pthread_mutex_init(&lock, NULL);
+    // pthread_cond_init(&moving, NULL);
+    // pthread_cond_init(&notmoving, NULL);
 
     //  II.C.  Create 'NUM_TRAINS' 'Train' instances and pthreads that operate
     //	       them:
@@ -208,10 +210,9 @@ public :
       locPtr->arrive(trainPtrArray[i]);
 
       //  II.C.3.  Create pthread for 'Train' instance:
-      while (i < NUM_TRAINS)
-	pthread_create(&trainArray[i],NULL,simulateTrain,&trainPtrArray[i]);
       //  YOUR CODE HERE TO INITIALIZE THE i-th pthread TO RUN
       //  'simulateTrain()' GIVEN 'trainPtrArray[i]' AS A PARAMETER
+      pthread_create(&tid[i], NULL, simulateTrain, (void*)trainPtrArray[i]);
     }
 
     //  III.  Finished:
@@ -228,10 +229,10 @@ public :
     for  (uint i = 0;  i < NUM_TRAINS;  i++)
     {
       Train*	trainPtr;
-
+      //  TODO
       //  YOUR CODE HERE TO WAIT FOR THE i-th pthread AND TO SET 'trainPtr' TO
       //  THE 'Train' INSTANCE THAT IT GIVES BACK
-      pthread_join(trainArray[i], NULL);
+      pthread_join(tid[i], (void**)&trainPtr);
       safeDelete(trainPtr);
     }
 
@@ -267,6 +268,8 @@ public :
     //  II.  Display system:
     clear();
 
+    // lock
+    // only allow in if no trains are moving
     move( 1, 0);	brownlineNorth.print();
     move( 2, 6);	addstr("|");
     move( 3, 0);	brownlineNorthTrack.print();
@@ -298,7 +301,8 @@ public :
     move(16,23);	redlineSouthTrack.print();
     move(17,29);	addstr("|");
     move(18,23);	redlineSouth.print();
-
+    // set no move condition
+    // unlock
     if  (redlineNorthTrack.getNumTrains() > MAX_ALLOWED_NUM_TRAINS_ON_TRACK)
     {
       move(20,10);
