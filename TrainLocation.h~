@@ -47,6 +47,7 @@ public :
   				throw() :
 				nameCPtr(strndup(newNameCPtr,MAX_STRING_LEN-1))
 				{
+				   //  YOUR CODE HERE TO INITIALIZE YOUR MUTEX
 				   pthread_mutex_init(&trainLocationLock, NULL);
 
 				}
@@ -55,6 +56,7 @@ public :
   virtual
   ~TrainLocation		()
   				{
+				  //  YOUR CODE HERE TO DESTROY YOUR MUTEX
 				  pthread_mutex_destroy(&trainLocationLock);
 				  safeFree(nameCPtr);
 				}

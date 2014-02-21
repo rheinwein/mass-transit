@@ -38,6 +38,7 @@ void		Track::arrive	(Train*		trainPtr
 
   //  II.  Make '*trainPtr' arrive at '*this':
   //  II.A.  Get lock on track:
+  //  ????
   pthread_mutex_lock(getLockPtr());
   if  ( !trainPtr->getMassTransit().getShouldContinue() )
   {

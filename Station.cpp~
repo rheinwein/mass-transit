@@ -73,6 +73,8 @@ void		Station::arrive	(Train*		trainPtr
 
 
 //  PURPOSE:  To make '*trainPtr' leave '*this'.  No return value.
+//  YOUR CODE SOMEWHERE IN HERE TO LOCK AND UNLOCK 'getLockPtr()'
+//  WHAT NEEDS TO BE PROTECTED?
 void		Station::leave	(Train*		trainPtr
   				)
 				throw()

@@ -55,6 +55,7 @@ public :
     termini[NORTH]	= northTerminusPtr;
     termini[SOUTH]	= southTerminusPtr;
 
+    //  YOUR CODE HERE TO INITIALIZE YOUR CONDITION
     pthread_cond_init(&isAvailableCond, NULL);
 
     //  III.  Finished:
@@ -65,6 +66,7 @@ public :
   ~Track			()
   				throw()
 				{
+				  //  YOUR CODE HERE TO DESTROY YOUR CONDITION
     				pthread_cond_destroy(&isAvailableCond);
 				}
 
